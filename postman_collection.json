@@ -1,0 +1,114 @@
+{
+  "info": {
+    "name": "Ecomm Store",
+    "description": "Cart, checkout and nth-order discount APIs (Next.js). Set the `baseUrl` collection variable (default http://localhost:3000). A typical flow: place NTH_ORDER (default 3) orders, POST /api/admin/discount to mint the coupon, then checkout with it.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "cartId", "value": "demo-cart" },
+    { "key": "discountCode", "value": "SAVE10-1" }
+  ],
+  "item": [
+    {
+      "name": "List products",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/products", "host": ["{{baseUrl}}"], "path": ["api", "products"] }
+      }
+    },
+    {
+      "name": "View cart",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/cart?cartId={{cartId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "cart"],
+          "query": [{ "key": "cartId", "value": "{{cartId}}" }]
+        }
+      }
+    },
+    {
+      "name": "Add item to cart",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cartId\": \"{{cartId}}\",\n  \"productId\": \"p1\",\n  \"quantity\": 2\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/cart", "host": ["{{baseUrl}}"], "path": ["api", "cart"] }
+      }
+    },
+    {
+      "name": "Update item quantity (0 removes)",
+      "request": {
+        "method": "PATCH",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cartId\": \"{{cartId}}\",\n  \"productId\": \"p1\",\n  \"quantity\": 1\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/cart", "host": ["{{baseUrl}}"], "path": ["api", "cart"] }
+      }
+    },
+    {
+      "name": "Validate discount code",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/discount/validate?code={{discountCode}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "discount", "validate"],
+          "query": [{ "key": "code", "value": "{{discountCode}}" }]
+        }
+      }
+    },
+    {
+      "name": "Checkout (no discount)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cartId\": \"{{cartId}}\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/checkout", "host": ["{{baseUrl}}"], "path": ["api", "checkout"] }
+      }
+    },
+    {
+      "name": "Checkout (with discount)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cartId\": \"{{cartId}}\",\n  \"discountCode\": \"{{discountCode}}\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/checkout", "host": ["{{baseUrl}}"], "path": ["api", "checkout"] }
+      }
+    },
+    {
+      "name": "Admin — generate discount code",
+      "request": {
+        "method": "POST",
+        "url": { "raw": "{{baseUrl}}/api/admin/discount", "host": ["{{baseUrl}}"], "path": ["api", "admin", "discount"] }
+      }
+    },
+    {
+      "name": "Admin — list discount codes",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/admin/discount", "host": ["{{baseUrl}}"], "path": ["api", "admin", "discount"] }
+      }
+    },
+    {
+      "name": "Admin — store stats",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/admin/stats", "host": ["{{baseUrl}}"], "path": ["api", "admin", "stats"] }
+      }
+    }
+  ]
+}

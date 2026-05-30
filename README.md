@@ -167,10 +167,3 @@ unit-tested without spinning up a server.
 - **`pricing.test.ts`** — subtotal/discount math and currency rounding.
 - **`store.test.ts`** — cart behaviour, checkout, nth-order coupon eligibility
   and de-duplication, single-use redemption, and stats aggregation.
-
-## Notes on dependencies
-
-`npm audit` reports advisories in `next@14.2.x` (DoS-class issues fixed only in
-Next 16) and in dev-only transitive packages. The app stays on the latest
-patched **14.2.35** to avoid a risky major upgrade for a demo; none of the
-flagged vectors (e.g. `next/image` remote patterns) are used here.

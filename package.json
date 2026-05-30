@@ -2,6 +2,7 @@
   "name": "ecomm-store",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "An ecommerce store with cart, checkout, and an nth-order discount system, built with Next.js (full-stack).",
   "scripts": {
     "dev": "next dev",

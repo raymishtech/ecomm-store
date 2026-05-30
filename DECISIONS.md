@@ -78,8 +78,7 @@ future version could queue unclaimed coupons if desired.
 
 ---
 
-## Decision: Validate the discount code at checkout and fail the whole order on
-an invalid code
+## Decision: Validate the discount code at checkout and fail the whole order on an invalid code
 
 **Context:** "The checkout API would validate if the discount code is valid
 before giving the discount." When a customer supplies a *bad* code, the system
